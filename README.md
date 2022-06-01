@@ -56,3 +56,21 @@ Boundless Events is a website where users can add, view and attend events. The u
 ##### # Implemented search bar to search for events #####
 
 ![ezgif com-gif-maker (9)](https://user-images.githubusercontent.com/87786124/171308365-6d08263f-b5a1-4bad-9e11-7d0c09ad8047.gif)
+
+#### On Iphone 6/7/8 ####
+
+##### Showing Home screen, login and navigation bar expander #####
+
+![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/87786124/171311057-689eb35b-202b-4748-a6db-30e0d422db04.gif)
+
+##### Showing change by type, going to single event, changing attending status and viewing all attending statuses #####
+
+![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/87786124/171311029-b71b5f30-2b9a-49f9-ae78-a209dd4b550f.gif)
+
+##### Showing edit event page #####
+
+![ezgif com-gif-maker (12)](https://user-images.githubusercontent.com/87786124/171311294-748d5008-0f81-4bc5-99aa-752cdd27463b.gif)
+
+#### Showing edit user account page #####
+
+![ezgif com-gif-maker (13)](https://user-images.githubusercontent.com/87786124/171311760-6440f1e1-4edb-47f5-800a-cb76826f529e.gif)
