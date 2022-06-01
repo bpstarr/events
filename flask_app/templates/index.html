@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Events</title>
+</head>
+<body>
+    <nav class ="navbar-light navbar navbar-expand-sm p-2" style = "background-color: rgb(97, 96, 96);">
+        <div class ="container" style = "background-color:rgb(97, 96, 96);">
+            <span class = "navbar-brand mb-0 display-2"><h2 class = 'bgImg'>Boundless Events</h2></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if 'user_id' in session %}
+            <div  class = "reference_header" tabindex = "0">
+                <span class="navbar-brand mb-0 ml-5 display-2 gradient-text-smaller" style= "color:rgb(231, 245, 35);"><h4>Welcome {{user.first_name}} {{user.last_name}}</h4></span>
+                <div class = 'popout-menu_header nav-link border-0 mx-3 px-4' style = "color:white;" > 
+                    <a style = "color:white;" href="/user/{{session['user_id']}}">Edit Account</a>
+                </div>
+            </div>
+            {% with errors = get_flashed_messages(category_filter=['success']) %}     <!-- declare a variable called messages -->
+                {% if success %}                            <!-- check if there are any messages -->
+                {% for message in success %}            <!-- loop through the messages -->
+                    <p class = "text-success">{{message}}</p>                   <!-- display each message in a paragraph tag -->                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% endif %}
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class = "navbar-nav">
+                    {% if 'user_id' not in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/login" id = 'navbar_button'>Login</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/registration" id = 'navbar_button'>Register</a>
+                    </li>        
+                    {% endif %}
+                    {% if 'user_id' in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/logout" id = 'navbar_button'>Logout</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/event" id = 'navbar_button'>Add event</a>
+                    </li>
+                    {% endif %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/dashboard" id = 'navbar_button'>Browse</a>
+                    </li>
+                    <li class = "nav-item">
+                        <form class = "d-flex justify-content-end my-2 my-lg-0" action = "/show_result" method="GET">
+                            <input  class = "form-control mr-sm-2 pd-5"type="text" type = 'search' placeholder = "Search" name = "search">
+                            <button type = 'submit' class = "form-control border-0 mx-1 px-1 navbar_button" id = "navbar_button">Submit</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class = "container">
+        <div>
+            <img src="{{ url_for('static', filename='pics/concert_photo.jpeg') }}" alt="Concert Photo" class = "full-width">
+            <h1 class = "text-overlay-top" style = "font-size: calc(14px + (70 - 14) * ((100vw - 300px) / (1600 - 300)));">Find your events here!</h1>
+            <h4 class = "text-overlay-center" style = "font-size: calc(14px + (50 - 14) * ((100vw - 300px) / (1600 - 300)));">From music to sporting events to beyond.</h4>
+            <a class = "text-overlay-center-middle" href="/dashboard"><h4 style = "font-size: calc(14px + (50 - 14) * ((100vw - 300px) / (1600 - 300)));">Click here to browse events</h4></a>
+            {% if 'user_id' not in session %}
+            <div  class = "reference" tabindex = "0">
+                <h4 style = "font-size: calc(14px + (50 - 14) * ((100vw - 300px) / (1600 - 300)));">Hover here to register or login</h4>
+                <div class ="popout-menu">
+                    <a href ="/login" style = "font-size: calc(14px + (25 - 14) * ((100vw - 300px) / (1600 - 400)));">Login</a>
+                    <a style = "font-size: calc(14px + (25 - 14) * ((100vw - 300px) / (1600 - 300)));" href ="/registration">Register</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>      
+    <footer  style = " position:absolute; left: 0; right: 0; width: 100%;height:80px; background-color: rgb(97, 96, 96);margin-top: calc(500px + (1200 - 900) * ((100vw - 50px) / (1600 - 570)));">
+    <div class="footer-copyright text-center py-3 mt-3">© 2018 Copyright:
+        <a href="#"> Boundless Events</a>
+    </div>
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+</html>

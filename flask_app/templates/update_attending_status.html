@@ -1,0 +1,33 @@
+<div style = "margin-bottom: 10%;" class="dropdown mt-5">
+    <button class="edit_button mb-1"  >Attending: ({{attending|count}})</button>
+    <ul class = "ul_style">
+    {% for user in attending %}
+        <li>
+            <p>{{user.creator.first_name}} {{user.creator.last_name}}</p>
+            <img class ="rounded-circle account-img" style = "height:25px; width:auto" src="{{profile_pics}}{{user.creator.user_picture}}" alt="Profile_picture">
+        </li>                            
+    {% endfor %}
+    </ul>
+</div>
+<div class = "dropdown mt-5">
+    <button class="edit_button mb-1" >Not Attending: ({{not_attending|count}})</button>
+    <ul class = "ul_style">
+    {% for user in not_attending %}
+        <li>
+            <p>{{user.creator.first_name}} {{user.creator.last_name}}</p>
+            <img class ="rounded-circle account-img" style = "height:25px; width:auto" src="{{profile_pics}}{{user.creator.user_picture}}" alt="Profile_picture">
+        </li>                            
+        {% endfor %}
+    </ul>
+</div>
+<div class = "dropdown mt-5">
+    <button class="edit_button mb-1" >Maybe Attending: ({{maybe_attending|count}})</button>
+    <ul class = "ul_style">
+    {% for user in  maybe_attending %}
+        <li>
+            <p>{{user.creator.first_name}} {{user.creator.last_name}}</p>
+            <img class ="rounded-circle account-img" style = "height:25px; width:auto" src="{{profile_pics}}{{user.creator.user_picture}}" alt="Profile_picture">
+        </li>                            
+    {% endfor %}
+    </ul>
+</div>

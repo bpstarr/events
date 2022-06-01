@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Events</title>
+</head>
+<body style = "background-color:rgb(66, 20, 66);">
+    <nav class ="navbar-light navbar navbar-expand-sm p-2" style = "background-color: rgb(97, 96, 96);">
+        <div class ="container" style = "background-color:rgb(97, 96, 96);">
+            <span class = "navbar-brand mb-0 display-2"><h2 class = 'bgImg'>Boundless Events</h2></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if 'user_id' in session %}
+            <div  class = "reference_header" tabindex = "0">
+                <div class = 'd-flex justify-content-start'>
+                <img class ="rounded-circle account-img" style = "height:50px; width:auto" src="{{profile_pics}}{{session['user_picture']}}" alt="Profile_picture">
+                <span class="navbar-brand mb-0 ml-1 display-2 gradient-text-smaller" style= "color:rgb(231, 245, 35);"><h4>Welcome {{user.first_name}} {{user.last_name}}</h4></span>
+                </div>
+                <div class = 'popout-menu_header nav-link border-0 mx-3 px-4'> 
+                    <a style = "color:white;" href="/user/{{session['user_id']}}">Edit Account</a>
+                </div>
+            </div>
+            {% endif %}
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class = "navbar-nav">
+                    {% if 'user_id' not in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/login" id = 'navbar_button'>Login</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/registration" id = 'navbar_button'>Register</a>
+                    </li>     
+                    {% endif %}
+                    {% if 'user_id' in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/logout" id = 'navbar_button'>Logout</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/event" id = 'navbar_button'>Add event</a>
+                    </li>
+                    {% endif %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/" id = 'navbar_button'>Home</a>
+                    </li>
+                    <li class = "nav-item">
+                        <form class = "d-flex justify-content-end my-2 my-lg-0" action = "/show_result" method="GET">
+                            <input  class = "form-control mr-sm-2 pd-5"type="text" type = 'search' placeholder = "Search" name = "search">
+                            <button type = 'submit' class = "form-control border-0 mx-1 px-1 navbar_button" id = "navbar_button">Submit</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}     <!-- declare a variable called messages -->
+        {% if messages %}                            <!-- check if there are any messages -->
+            {% for message in messages %}            <!-- loop through the messages -->
+                <h2 class = "text-success text-center font-weight-bold mt-2">{{message}}</h2>                   <!-- display each message in a paragraph tag -->
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class = "container">
+        <h1 class = "text-center mt-3 gradient-text">Browse Events</h1>
+        <div>
+            <h4 class = 'text-center mt-3 gradient-text-smaller'>Filter By Type:</h4>
+                <nav class ="navbar-light navbar navbar-expand-sm p-2" style = "background-color: rgb(97, 96, 96);">
+                    <div class ="container" style = "background-color:rgb(97, 96, 96);">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+                            <ul class = "navbar-nav">
+                                <li class = "nav-item">
+                                    <button class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" name = 'type' onclick = "getByAll()">All</button>
+                                </li>
+                                <li class = "nav-item">
+                                    <button class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" value = "music" name = 'type' onclick = "getByType(this.value)">Music</button>
+                                </li>
+                                <li class = "nav-item">
+                                    <button class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" value = "sport" name = 'type' onclick = "getByType(this.value)">Sport</button>
+                                </li>        
+                                <li class = "nav-item">
+                                    <button class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" value = "movie" name = 'type' onclick = "getByType(this.value)">Movie</button>
+                                </li>
+                                <li class = "nav-item">
+                                    <button class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" value = "talk" name = 'type' onclick = "getByType(this.value)">Talk</button>
+                                </li>
+                                <li class = "nav-item">
+                                    <button class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" value = "other" name = 'type' onclick = "getByType(this.value)">Other</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div id = "new_container"></div>
+        <div class = "container-fluid mt-2" id = "container">
+            <div class = "d-flex flex-wrap justify-content-around">
+            {% for events in events %}
+            <div class = "row">
+                <div>
+                    <div class = "card-deck">
+                        <div class = "card" style = "width:12rem; height:12rem" id = 'dashboard_img'>
+                            {% set date_time = events.date_time.split(' ') %}
+                            <h5 class="dashboard_h5">{{events.name}}</h5>
+                            <p class = "dashboard_p">On {{date_time[0]}} @ {{date_time[1]}} {{date_time[2]}}</p>
+                            <input type="hidden" name="id" value = '{{events.id}}' >
+                            <img class = "card_img" src="{{event_image_file}}{{events.picture}}" alt="Event image">
+                            <div class = "img_links">
+                                <a href = "/show_event/{{events.id}}" class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white">See Event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            {% endfor %} 
+        </div>
+    </div>
+    <footer style = "position:absolute; left: 0; right: 0; width: 100%;height:80px; margin-top:10%; background-color: rgb(97, 96, 96);">
+        <div class="footer-copyright text-center py-3 mt-3">© 2018 Copyright:
+            <a href="#"> Boundless Events</a>
+        </div>
+    </footer>
+    
+    <script src = "{{ url_for('static',filename='logic.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" 
+    crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+ /* * {
+    border: 2px red solid
+} */
+
+body {
+    background-color:rgb(66, 20, 66);
+    color:rgb(231, 245, 35);
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+.bgImg{
+    font-size:2.3vw;
+    font-family:luminari;
+    font-weight: 900;
+    background-image: url('./pics/space.png');
+    background-size: cover;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color:transparent;
+}
+.gradient-text {
+    background: linear-gradient(rgb(231, 245, 35),rgb(129, 120, 33));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 35px;
+}
+.gradient-text-smaller {
+    background: linear-gradient(rgb(231, 245, 35),rgb(129, 120, 33));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 25px;
+}
+
+.full-width {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    max-width: 100vw;
+    width:100vw;
+}
+
+.text-overlay-top{
+    position:relative;
+    text-align: center;
+    top:0;
+    left: 0;
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: 300px;
+    color:rgb(231, 245, 35);
+    backdrop-filter: blur(14px) brightness(80%);
+}
+
+.text-overlay-center{
+    position:absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: 300;
+    color:rgb(231, 245, 35);
+    backdrop-filter: blur(14px) brightness(80%);
+}
+
+.text-overlay-center-middle{
+    position:absolute;
+    margin-top: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: 300;
+    color:rgb(231, 245, 35);
+    backdrop-filter: blur(14px) brightness(80%);
+    cursor:pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+@media only screen and (max-width:200px) {
+    .popout-menu_header {
+        position: absolute;
+        visibility: hidden;
+        top: 10%;
+        left: 35%;
+    }
+}
+.reference_header:hover {
+    color: rgb(231, 245, 35);
+    cursor:pointer;
+    transition: all 0.3s ease-in-out;
+}
+@media only screen and (min-width:600px){
+    .popout-menu_header {
+        position: absolute;
+        visibility: hidden;
+        top: 50%;
+        left: 35%;
+    }
+}
+
+.reference_header:hover > .popout-menu_header,
+.reference_header:focus > .popout-menu_header,
+.reference_header:focus-within > .popout-menu_header {
+    visibility: visible;
+}
+
+.reference {
+    position: absolute;
+    margin-top: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    color:rgb(231, 245, 35);
+    backdrop-filter: blur(14px) brightness(80%);
+}
+
+.reference:hover {
+    color:rgb(54, 54, 247);
+    cursor:pointer;
+    transition: all 0.3s ease-in-out;
+}
+.popout-menu {
+    position: absolute;
+    visibility: hidden;
+    left:100%;
+    transform: translate(-50%, -50%);
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    color:rgb(231, 245, 35);
+    backdrop-filter: blur(14px) brightness(80%);
+}
+
+.popout-menu a {
+    padding: 1rem;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-left: 40%;
+    margin-bottom: 100px;
+    color:rgb(245, 35, 35);
+    backdrop-filter: blur(14px) brightness(80%);
+}
+
+.reference:hover > .popout-menu,
+.reference:focus > .popout-menu,
+.reference:focus-within > .popout-menu {
+    visibility: visible;
+}
+
+.prev::before {
+    content: "←";
+    height: 50px;
+}
+
+.next::before {
+    content: "→";
+    height: 50px;
+
+}
+
+.glyphicon.glyphicon-chevron-up::before {
+    content:'↑';
+    height:50px;
+    color:rgb(231, 245, 35)
+}
+
+.glyphicon.glyphicon-chevron-down::before {
+    content:'↓';
+    height:50px;
+    color:rgb(231, 245, 35)
+}
+
+.datepicker table tr td:not(.disabled).day:hover,
+.datepicker table tr td:not(.disabled).day.focused {
+	background-color: black !important;
+}
+
+.datepicker .datepicker-days thead th.picker-switch:hover{
+    background-color: black !important;
+}
+
+.datepicker .datepicker-days thead th.prev:hover,
+.datepicker .datepicker-days thead th.next:hover {
+    background-color: black !important;
+    color: #ffffff;    
+}
+
+.timepicker .timepicker-picker tr td .glyphicon.glyphicon-chevron-up:hover,
+.timepicker .timepicker-picker tr td .glyphicon.glyphicon-chevron-down:hover {
+    background-color: black !important;
+    color: #ffffff;    
+}
+
+.timepicker .timepicker-picker tr td .timepicker-hour:hover,
+.timepicker .timepicker-picker tr td .timepicker-minute:hover {
+    background-color: black;
+}
+
+.edit_button {
+    background-color: rgb(158, 5, 5);
+    color:rgb(231, 245, 35);
+    border-radius: 7px;
+    padding: 8px;
+    border:rgb(95, 2, 2) solid 2px;
+}
+.edit_button:hover {
+    background-color: rgb(97, 5, 5);
+    color:rgb(231, 245, 35);
+    border-radius: 7px;
+    padding: 8px;
+    
+}
+
+.navbar_button {
+    background-color:rgb(66, 20, 66);
+    border-radius: 7px;
+    padding:8px;
+    border: rgb(10, 3, 10);
+    color:#ffffff;
+}
+.navbar_button:hover {
+    background-color:rgb(41, 16, 41);
+    border-radius: 7px;
+    padding:8px;
+    border: rgb(10, 3, 10);
+    color: #ffffff;
+}
+
+::-webkit-file-upload-button {
+    background-color:rgb(97, 96, 96);;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 7px;
+    border: rgba(97, 96, 96, 0.288);;
+}
+
+::-webkit-file-upload-button:hover {
+    background-color:rgba(97, 96, 96, 0.295);;
+    color: #ffffff;
+    padding: 8px;
+    border-radius: 7px;
+    border: rgba(17, 17, 17, 0.767);;
+}
+
+.dashboard_img {
+    position:relative;
+    width:50%;
+} 
+
+.dashboard_img img {
+    opacity:1;
+    display: block;
+    width:100%;
+    height:auto;
+    transition: .5 ease;
+    backface-visibility: hidden;
+}
+
+.img_links {
+    transition: all .5 ease-in-out;
+    opacity: 0;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%);
+    text-align:center;
+    
+}
+
+
+.img.closed {
+    max-height: 0;
+}
+
+.dashboard_img:hover .img {
+    opacity:0.3;
+}
+
+.dashboard_h5 {
+    background:rgba(225,225,225,0.2);
+    backdrop-filter:blur(8px); 
+    color: black;
+    border-radius:6px;
+    position: absolute;
+    margin-bottom:10px;
+    z-index:1;
+}
+
+#dashboard_img:hover .img_links {
+    opacity:1;
+}
+
+.card_img {
+    position: relative;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.dashboard_p {
+    position: absolute;
+    top:85%;
+    z-index:1;
+    color:black;
+    background:rgba(225,225,225,0.2);
+    backdrop-filter:blur(8px); 
+    font-size:15px
+
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content li {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+    background-color: rgb(61, 61, 61);
+    color: white;
+    text-decoration: none;
+    padding-left:50px;
+}
+
+.dropdown-content li:hover {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+    text-decoration: none;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#search_button_hide {
+    visibility: hidden;
+}
+
+.drop_button {
+    cursor:pointer;    
+}
+
+.dropdown {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.ul_style {
+    display: none;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    width:200px;
+    height: 80px;
+
+}
+
+.dropdown:hover .ul_style {
+    display: block;
+
+}
+
+.ul_style li {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+    background-color: rgb(61, 61, 61);
+    color: white;
+    text-decoration: none;
+    border:#000000 solid 2px;
+}
+
+.ul_style li:hover
+.ul_style li:focus {
+    color: #FFFFFF;
+    background-color: #00A4BD;
+    text-decoration: none;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+h2.gradient-text [style]{
+    background: linear-gradient(#008ebd,rgb(99, 101, 109));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 35px;
+}

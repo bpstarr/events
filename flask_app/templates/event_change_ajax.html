@@ -1,0 +1,23 @@
+
+<div class = "container-fluid mt-2" id = "container">
+    <div class = "d-flex flex-wrap justify-content-around">
+    {% for events in events %}
+        <div class = "row">
+            <div>
+                <div class = "card-deck">
+                    <div class = "card dashboard_img" style = "width:12rem; height:12rem" id = 'dashboard_img'>
+                    {% set date_time = events.date_time.split(' ') %}
+                        <h5 class="dashboard_h5">{{events.name}}</h5>
+                        <p class = "dashboard_p">On {{date_time[0]}} @ {{date_time[1]}} {{date_time[2]}}</p>
+                        <input type="hidden" name="id" value = '{{events.id}}' >
+                        <img class = "card_img" src="{{event_image_file}}{{events.picture}}" alt="Event image">
+                        <div class = "img_links">
+                            <a href = "/show_event/{{events.id}}" class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white">See Event</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        {% endfor %} 
+    </div>
+</div>

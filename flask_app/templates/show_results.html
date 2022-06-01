@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Events</title>
+</head>
+<body style = "background-color:rgb(66, 20, 66);">
+    <nav class ="navbar-light navbar navbar-expand-sm p-2" style = "background-color: rgb(97, 96, 96);">
+        <div class ="container" style = "background-color:rgb(97, 96, 96);">
+            <span class = "navbar-brand mb-0 display-2"><h2 class = 'bgImg'>Boundless Events</h2></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if 'user_id' in session %}
+            <span class="navbar-brand mt-1 ml-5 display-2 gradient-text" style= "color:rgb(231, 245, 35);"><h4>Welcome {{user.first_name}} {{user.last_name}}</h4></span>
+            {% endif %}
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class = "navbar-nav">
+                    {% if 'user_id' not in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link btn btn-primary border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/login" id = 'navbar_button'>Login</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link btn btn-primary border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/registration" id = 'navbar_button'>Register</a>
+                    </li>     
+                    {% endif %}
+                    {% if 'user_id' in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link btn btn-primary border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/logout" id = 'navbar_button'>Logout</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link btn btn-primary border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/event" id = 'navbar_button'>Add event</a>
+                    </li>
+                    {% endif %}
+                    <li class = "nav-item">
+                        <a class ="nav-link btn btn-primary border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/" id = 'navbar_button'>Home</a>
+                    </li>
+                    <li class = "nav-item">
+                        <form class = "d-flex justify-content-end my-2 my-lg-0" method="GET">
+                            <input  class = "form-control mr-sm-2 pd-5"type="text" type = 'search' placeholder = "Search" name = "search">
+                            <button type = 'submit' class = "form-control border-0 mx-1 px-1 navbar_button">Search</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class = "container">
+        <div class = "container-fluid mt-2">
+                <h2 class = "gradient-text text-center mt-2">Search Result for <span style ='color:#00A4BD'>{{search}}</span> ({{ events|count }})</h2>
+            <div class = "d-flex flex-wrap justify-content-around">
+                {% if events|count == 0 %}
+                <h5 class="gradient-text-smaller">No Results Found</h5>
+                {% endif %}
+            {% for events in events %}
+            <div class = "row">
+                <div>
+                    <div class = "card-deck">
+                        <div class = "card" style = "width:12rem; height:12rem" id = 'dashboard_img'>
+                            {% set date_time = events.date_time.split(' ') %}
+                            <h5 class="dashboard_h5">{{events.name}}</h5>
+                            <p class = "dashboard_p">On {{date_time[0]}} @ {{date_time[1]}} {{date_time[2]}}</p>
+                            <input type="hidden" name="id" value = '{{events.id}}' >
+                            <img class = "card_img" src="{{event_image_file}}{{events.picture}}" alt="Event image">
+                            <div class = "img_links">
+                                <a href = "/show_event/{{events.id}}" class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white">See Event</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        {% endfor %} 
+        </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+</body>
+</html>

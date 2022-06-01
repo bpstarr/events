@@ -1,0 +1,54 @@
+<div>
+    <h5 class="card-title mt-4">{{events.description}}</h5>
+    {% set date_time = events.date_time.split(' ') %}
+    <p class="card-text mt-4">Event is {{date_time[0]}} @ {{date_time[1]}} {{date_time[2]}}</p>
+    <form action="/change_attending_status" method="post" id = 'status_form'>
+        <div class="dropdown mb-5">
+            <p class="edit_button mb-1" >Change Attending Status:</p>
+            <input id = 'event_id' type = 'hidden' name = 'event_id' value='{{events.id}}'>
+            <ul class="dropdown-content" id = 'dropdown'>
+                <li value = 'Attending'>Attending</li>                            
+                <li value = 'Not Attending'>Not Attending</li>
+                <li value= 'Maybe'>Maybe</li>
+            </ul>
+            <input type = 'hidden' name = 'attending_status' id = 'status_hidden' value = '{{attending_status.attending}}'>
+            <input type = 'submit' id = 'search_button_hide' onclick = "updateAttendingStatus()">
+        </div>
+    </form>
+    <div style = "margin-bottom: 20%;" id = "new_attending_status"></div>
+    <div style = "margin-bottom:20%" id = "attending_status_container">
+        <div style = 'margin-bottom:10%' class="dropdown mt-5">
+            <button class="edit_button mb-1"  >Attending: ({{attending|count}})</button>
+            <ul class = "ul_style">
+                {% for user in attending %}
+                <li>
+                    <p>{{user.creator.first_name}} {{user.creator.last_name}}</p>
+                    <img class ="rounded-circle account-img" style = "height:25px; width:auto" src="{{profile_pics}}{{user.creator.user_picture}}" alt="Profile_picture">
+                </li>                            
+                {% endfor %}
+            </ul>
+        </div>
+        <div class = "dropdown mt-5">
+            <button class="edit_button mb-1" >Not Attending: ({{not_attending|count}})</button>
+            <ul class = "ul_style">
+                {% for user in not_attending %}
+                <li>
+                    <p>{{user.creator.first_name}} {{user.creator.last_name}}</p>
+                    <img class ="rounded-circle account-img" style = "height:25px; width:auto" src="{{profile_pics}}{{user.creator.user_picture}}" alt="Profile_picture">
+                </li>                            
+                {% endfor %}
+            </ul>
+        </div>
+        <div class = "dropdown mt-5">
+            <button class="edit_button mb-1" >Maybe Attending: ({{maybe_attending|count}})</button>
+            <ul class = "ul_style">
+                {% for user in  maybe_attending %}
+                <li>
+                    <p>{{user.creator.first_name}} {{user.creator.last_name}}</p>
+                    <img class ="rounded-circle account-img" style = "height:25px; width:auto" src="{{profile_pics}}{{user.creator.user_picture}}" alt="Profile_picture">
+                </li>                            
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    </div>

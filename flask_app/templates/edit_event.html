@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <title>Events</title>
+</head>
+<body>
+    <nav class ="navbar-light navbar navbar-expand-sm p-2" style = "background-color: rgb(97, 96, 96);">
+        <div class ="container" style = "background-color:rgb(97, 96, 96);">
+            <span class = "navbar-brand mb-0 display-2"><h2 class = 'bgImg'>Boundless Events</h2></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if 'user_id' in session %}
+            <div  class = "reference_header" tabindex = "0">
+                <div class = 'd-flex justify-content-start'>
+                <img class ="rounded-circle account-img" style = "height:50px; width:auto" src="{{profile_pics}}{{session['user_picture']}}" alt="Profile_picture">
+                <span class="navbar-brand mb-0 ml-1 display-2" id = "gradient-text" style= "color:rgb(231, 245, 35);"><h4>Welcome {{user.first_name}} {{user.last_name}}</h4></span>
+                </div>
+                <div class = 'popout-menu_header nav-link border-0 mx-3 px-4'> 
+                    <a style = "color:white;" href="/user/{{session['user_id']}}">Edit Account</a>
+                </div>
+            </div>
+            {% endif %}
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class = "navbar-nav">
+                    {% if 'user_id' not in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/login" style = "background-color: rgb(66, 20, 66); color:white;">Login</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/registration" style = "background-color: rgb(66, 20, 66); color:white;">Register</a>
+                    </li>        
+                    {% endif %}
+                    {% if 'user_id' in session %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/logout" style = "background-color: rgb(66, 20, 66); color:white;">Logout</a>
+                    </li>
+                    {% endif %}
+                    <li class = "nav-item">
+                        <a class ="nav-link border-0 mx-3 px-4 navbar_button" style = "color:white" href = "/dashboard" style = "background-color: rgb(66, 20, 66); color:white;">Browse</a>
+                    </li>
+                    <li class = "nav-item">
+                        <form class = "d-flex justify-content-end my-2 my-lg-0" action = "/show_result" method="GET">
+                            <input  class = "form-control mr-sm-2 pd-5"type="text" type = 'search' placeholder = "Search" name = "search">
+                            <button type = 'submit' class = "form-control border-0 mx-1 px-1 navbar_button" id = "navbar_button">Submit</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class = "container">
+        <h1 class = "text-center mt-3" id = "gradient-text">Change Event</h1>
+        <div>
+            <form method = 'POST' action="/update_event/{{events.id}}" >
+                <div class = "form-group">
+                    <label for="name" style = "color:rgb(184, 196, 28)">Name of Event</label>
+                    <input value = '{{events.name}}'type="text" name = "name" class = "form-control col-5">
+                </div>
+                <div class = "form-group">
+                    <label for="description" style = "color:rgb(184, 196, 28)">Description</label>
+                    <textarea type="text" name = "description" class = "form-control col-5">{{events.description}}</textarea>
+                </div>
+                <div class = "form-group">
+                    <label for= "text" style = "color:rgb(184, 196, 28)">Type</label>
+                    <br>
+                    <select class = "form-select p-2"name="type" aria-label="Default select example">
+                        <option selected>Select a type</option>
+                        <option value="Music">Music</option>
+                        <option value="Sport">Sport</option>
+                        <option value="Movie">Movie</option>
+                        <option value="Talk">Talk</option>
+                        <option value="Other">Other</option> 
+                    </select>
+                </div>
+                <div class = "form-group">
+                    <label for="address" style = "color:rgb(184, 196, 28)">Address</label>
+                    <input value = "{{events.address}}"type="text" name = "address" class = "form-control col-5">
+                </div>
+                <div class = "form-group">
+                    <label for="date_time" style = "color:rgb(184, 196, 28)">Date and Time</label>
+                    <br>
+                    <div style="overflow:hidden;">
+                        <div class="form-group">
+                            <div class="row" name = "date_time">
+                                <div class="col-md-8">
+                                    <div id="datetimepicker">
+                                        <input value = "{{events.date_time}}"type="hidden" name = 'date_time'>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div>
+                    <input type = 'hidden' value = '{{events.id}}' name = "event_id">
+                    <input type="submit" class = 'edit_button' value = "Edit Event">
+                </div>
+            </form>
+            <form action = '/update_event_picture/{{events.id}}' method = 'POST' enctype='multipart/form-data'>
+                <div class = "form-group">
+                    <label for="picture" style = "color:rgb(184, 196, 28)">Picture</label>
+                    <input name = "picture" style = "background-color: rgb(66, 20, 66); color:rgb(184, 196, 28)" class = "form-control col-8 pb-5" type ='file'>
+                </div>
+                <div>
+                    <input type="submit" class = 'edit_button' value = "Change Event Picture">
+                </div>
+            </form>
+        </div>
+        {% with errors = get_flashed_messages(category_filter=['error']) %}     <!-- declare a variable called messages -->
+            {% if errors %}                            <!-- check if there are any messages -->
+                {% for message in errors %}            <!-- loop through the messages -->
+                <h2 class = "text-danger text-center font-weight-bold">{{message}}</h2>                  <!-- display each message in a paragraph tag -->
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src = "{{ url_for('static',filename='logic.js') }}"></script>
+</body>
+</html>
