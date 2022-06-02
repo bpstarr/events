@@ -1,6 +1,6 @@
 # Events
 
-Boundless Events is a website where users can add, view and attend events. The users can also see what other's attending statuses are.
+Boundless Events is a website where users can add, view and attend events. The users can also see what others attending statuses are.
 ### Features ###
 
 * Implemented responsive-design using Bootstrap Javascript, and CSS to enhance the user experience on different size screens. This includes responsive images, navigation bar, certain text, a datetimepicker for dates, etc..
