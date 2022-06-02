@@ -11,11 +11,11 @@ Boundless Events is a website where users can add, view and attend events. The u
 
 * Added the Google Maps API for seeing where the event is happening with ease.
 
-* A file upload was excuted for the users to add event pictures and profile picture. A static file was used to save the image and the filename was saved to the database, which saves space.
+* A file upload was excuted for the users to add event pictures and profile pictures. A static file was used to save the image and the filename was saved to the database, which saves space.
 
 * Users can change the event types on the dashboard with a button click for each type, this is automatically rendered with AJAX function without a page refresh.
 
-* Users can view a single event and click an attending status. This click is changes the the status using AJAX functionality/Javascript to automatically change on the page,along with the database.
+* Users can view a single event and click an attending status. This click changes the status using AJAX functionality/Javascript to automatically change on the page,along with the database.
 
 ### Demo ###
 
