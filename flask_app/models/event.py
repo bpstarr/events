@@ -1,5 +1,3 @@
-from calendar import c
-from sqlite3 import connect
 from time import strftime
 from flask_app import app
 from flask_app.config.mysqlconnection import connectToMySQL
